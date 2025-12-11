@@ -53,13 +53,14 @@
 
         <button
           type="submit"
+          [disabled]="!attendanceForm.valid"
           class="w-full py-3 px-6 text-white font-semibold rounded-lg transition duration-200 flex items-center justify-center"
           [class.bg-indigo-600]="attendanceForm.valid"
           [class.hover:bg-indigo-700]="attendanceForm.valid"
           [class.bg-gray-300]="!attendanceForm.valid"
           [class.cursor-not-allowed]="!attendanceForm.valid"
         >
-          <span class="material-icons mr-2 text-lg">save</span>
+          <span class="material-icons mr-2 text-lg">{{ editingIndex !== null ? 'update' : 'save' }}</span>
           {{ editingIndex !== null ? 'Atualizar' : 'Salvar' }}
         </button>
       </form>

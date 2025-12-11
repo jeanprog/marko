@@ -36,6 +36,7 @@ export class AttendanceComponent implements OnInit, OnDestroy {
       .subscribe(records => {
         this.attendanceList = records;
       });
+
   }
 
   ngOnDestroy(): void {
