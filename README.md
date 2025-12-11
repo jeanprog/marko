@@ -1,59 +1,80 @@
-# Marko
+# Lista de Presença (Angular 16+ Standalone + Tailwind)
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.0.3.
+Aplicação simples para cadastro e listagem de presença com formulários reativos, validação, e atualização otimista de estado. Visual com Tailwind CSS e Material Icons.
 
-## Development server
+## Requisitos
 
-To start a local development server, run:
+- Node.js 18+ (recomendado 20+)
+- npm 9+ (ou compatível com seu Node)
+- (Opcional) Angular CLI global: `npm i -g @angular/cli`
+
+## Instalação
 
 ```bash
+# 1) Instalar dependências
+npm install
+
+# 2) Rodar em desenvolvimento
+npm start
+# ou
 ng serve
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+- Acesse: http://localhost:4200
 
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+## Scripts úteis
 
 ```bash
-ng generate component component-name
+npm start        # ng serve (dev)
+npm run build    # build de produção
+npm run watch    # build em watch (modo dev)
+npm test         # testes unitários (Angular)
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+## Estrutura principal
 
-```bash
-ng generate --help
+```
+src/
+  app/
+    api/
+      attendance.api.ts            # Simulação de API (Observables com delay)
+    components/
+      attendance/
+        attendance.component.ts    # Form + integração com service
+        attendance.component.html
+      attendance-list/
+        attendance-list.component.ts
+        attendance-list.component.html
+    models/
+      attendance.model.ts          # Interface dos registros
+    services/
+      attendance.service.ts        # Estado local + chamadas fake (comentadas)
+  assets/
+  styles.css                       # Tailwind importado
 ```
 
-## Building
+## Como funciona
 
-To build the project run:
+- Formulário reativo com validação:
+  - Nome: obrigatório, mínimo 3 caracteres
+  - Email: obrigatório, formato válido
+- Botões: Salvar, Editar, Remover
+- Lista é atualizada imediatamente (optimistic update)
+- Separação de responsabilidades:
+  - `AttendanceComponent`: UI e interação do formulário
+  - `AttendanceListComponent`: exibição da lista (via @Input e @Output)
+  - `AttendanceService`: estado local + pontos de integração com API
+  - `AttendanceApi`: simulação de endpoints HTTP (apenas delay e `of()`)
 
-```bash
-ng build
-```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
 
-## Running unit tests
 
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
 
-```bash
-ng test
-```
+## Dicas de uso
 
-## Running end-to-end tests
+- Validações apresentam mensagens logo abaixo de cada campo.
+- A lista atualiza na hora (mesmo antes da "chamada HTTP fake").
+- O componente de lista emite eventos de editar e remover para o pai, que atualiza o service.
 
-For end-to-end (e2e) testing, run:
 
-```bash
-ng e2e
-```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
