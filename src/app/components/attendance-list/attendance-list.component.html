@@ -1,0 +1,56 @@
+<div class="w-full">
+  <div *ngIf="attendanceList.length > 0">
+    <ul class="space-y-3">
+      <li 
+        *ngFor="let record of attendanceList; let i = index"
+        class="bg-white border border-gray-200 p-4 rounded-lg hover:shadow-md transition duration-200"
+      >
+        <div class="flex items-start justify-between">
+          <div class="flex items-start flex-1">
+            <div class="flex-1">
+              <p class="font-semibold text-gray-800">
+                {{ record.name }}
+              </p>
+              <p class="text-gray-500 text-sm mt-1">
+                {{ record.email }}
+              </p>
+              <p *ngIf="record.timestamp" class="text-gray-400 text-xs mt-2">
+                {{ record.timestamp | date:'dd/MM/yyyy HH:mm' }}
+              </p>
+            </div>
+          </div>
+          
+          <div class="flex gap-2 ml-3">
+            <button
+              (click)="onEdit(i)"
+              class="bg-indigo-500 hover:bg-indigo-600 text-white p-2 rounded-lg transition duration-200 flex items-center justify-center"
+              title="Editar"
+            >
+              <span class="material-icons text-sm">edit</span>
+            </button>
+            <button
+              (click)="onRemove(i)"
+              class="bg-red-500 hover:bg-red-600 text-white p-2 rounded-lg transition duration-200 flex items-center justify-center"
+              title="Remover"
+            >
+              <span class="material-icons text-sm">delete</span>
+            </button>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <div *ngIf="attendanceList.length === 0" class="text-center py-16">
+    <div class="inline-flex items-center justify-center bg-gray-100 rounded-2xl w-24 h-24 mb-4">
+      <span class="material-icons text-gray-400 text-5xl">inbox</span>
+    </div>
+    <p class="text-gray-800 font-semibold mb-1">
+      Nenhum registro ainda
+    </p>
+    <p class="text-gray-500 text-sm">
+      Adicione o primeiro participante acima
+    </p>
+  </div>
+</div>
+
